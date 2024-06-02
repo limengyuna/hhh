@@ -59,4 +59,6 @@ public class Post {
     public void setImg(String img) {
         this.img = img;
     }
+
+
 }

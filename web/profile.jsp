@@ -96,6 +96,17 @@
             <p><%= user.getCreatedAt() %></p>
         </div>
     </div>
+    <div class="profile-item">
+        <form action="updateProfile" method="post">
+            <h2>用户名</h2>
+            <input type="text" name="username" value="<%= user.getUsername() %>"> <!-- 允许修改用户名 -->
+            <br>
+            <h2>邮箱</h2>
+            <input type="text" name="email" value="<%= user.getEmail() %>"> <!-- 允许修改邮箱信息 -->
+            <br>
+            <input type="submit" value="确认修改">
+        </form>
+    </div>
 </div>
 </body>
 </html>

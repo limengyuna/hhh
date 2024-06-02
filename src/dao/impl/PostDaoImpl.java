@@ -12,6 +12,7 @@ import java.util.List;
 
 public class PostDaoImpl implements PostDao {
 
+
     @Override
     public List<Post> getAllPosts() {
         List<Post> posts = new ArrayList<>();
@@ -109,4 +110,40 @@ public class PostDaoImpl implements PostDao {
         }
         return user;
     }
+    @Override
+    public void addComment(Comment comment) {
+        try (Connection conn =  DbUtil.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(
+                     "INSERT INTO comments (post_id, content, created_at, user_id )VALUES (?, ?, ?, ?)")) {
+            stmt.setInt(1, comment.getPostId());
+            stmt.setString(2, comment.getContent());
+            stmt.setTimestamp(3, comment.getCreatedAt());
+            stmt.setInt(4, comment.getAuthorId());
+            stmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void createPost(Post post) {
+        String sql = "INSERT INTO posts (post_id, user_id, title, content, created_at, img) VALUES (?, ?, ?, ?, ?, ?)";
+
+        try (Connection conn = DbUtil.getConnection();
+             PreparedStatement statement = conn.prepareStatement(sql)) {
+
+            statement.setInt(1, post.getPostId());
+            statement.setInt(2, post.getUserId());
+            statement.setString(3, post.getTitle());
+            statement.setString(4, post.getContent());
+            statement.setTimestamp(5, new Timestamp(System.currentTimeMillis()));
+            statement.setString(6, post.getImg());
+
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
 }
+

@@ -55,4 +55,30 @@ public class UserDaoImpl implements UserDao {
             return null;
         }
     }
+
+    @Override
+    public boolean updateUser(User user) {
+        // 更新用户信息的 SQL 语句
+        String sql = "UPDATE users SET username = ?, email = ? WHERE user_id = ?";
+
+        try (
+                Connection connection = DbUtil.getConnection();
+                PreparedStatement statement = connection.prepareStatement(sql)
+        ) {
+            // 设置 SQL 语句的参数
+            statement.setString(1, user.getUsername());
+            statement.setString(2, user.getEmail());
+            statement.setInt(3, user.getUserId());
+
+            // 执行 SQL 更新语句
+            int rowsUpdated = statement.executeUpdate();
+
+            // 如果更新成功，返回 true；否则返回 false
+            return rowsUpdated > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            // 更新过程中出现异常，返回 false
+            return false;
+        }
+    }
 }

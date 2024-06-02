@@ -18,4 +18,6 @@ public interface PostDao {
     Post getPostById(int id);
     List<Comment> getCommentsByPostId(int postId);
     User getAuthorById(int authorId);
+    void addComment(Comment comment);
+    void createPost(Post post);
 }

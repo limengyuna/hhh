@@ -35,14 +35,9 @@
             posts = (List<Post>) request.getAttribute("posts");
             for (Post post : posts) {
         %>
-<%--        <div class="post">--%>
-<%--            <h2><%= post.getTitle() %></h2>--%>
-<%--            <p><%= post.getContent() %></p>--%>
-<%--            <img src="img/posts_img/<%= post.getImg() %>" alt="<%= post.getTitle() %>" />--%>
-<%--            <p>发布时间：<%= post.getCreatedAt() %></p>--%>
-<%--        </div>--%>
         <div class="post">
             <h2><a href="post_detail.jsp?id=<%= post.getPostId() %>"><%= post.getTitle() %></a></h2>
+
             <p><%= post.getContent() %></p>
             <img src="img/posts_img/<%= post.getImg() %>" alt="<%= post.getTitle() %>" />
             <p>发布时间：<%= post.getCreatedAt() %></p>
